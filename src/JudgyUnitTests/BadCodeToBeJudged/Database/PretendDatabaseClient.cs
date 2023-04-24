@@ -18,20 +18,20 @@
             this.queryRetries = queryRetries;
         }
 
-        public async Task<DatabaseResult> FindDatabaseResult(string query)
+        public async Task<PreferredFoodForJourney> FindDatabaseResult(string query)
         {
             // Pretend to take time making a db query
             await Task.Delay(TimeSpan.FromMilliseconds(500));
             // Pretend that we find a single result. We don't care about this data for test purposes
-            return new DatabaseResult(1);
+            return new PreferredFoodForJourney("sushi");
         }
 
-        public async Task<AnotherDatabaseResult> FindAnotherDatabaseResult(string query)
+        public async Task<RocketThrustStatistics> FindAnotherDatabaseResult(string query)
         {
             // Pretend to take time making a db query
             await Task.Delay(TimeSpan.FromMilliseconds(500));
             // Pretend that we find a single result. We don't care about this data for test purposes
-            return new AnotherDatabaseResult(1, 2, 3, 4, 5);
+            return new RocketThrustStatistics(1, 2, 3, 4, 5);
         }
     }
 }

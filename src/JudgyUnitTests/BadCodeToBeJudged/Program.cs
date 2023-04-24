@@ -1,2 +1,1 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿// This program is non functional. It is being used to demonstrate code smells through difficulty writing unit tests

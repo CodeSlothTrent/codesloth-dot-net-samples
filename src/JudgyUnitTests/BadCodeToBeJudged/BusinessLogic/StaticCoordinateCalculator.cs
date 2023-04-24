@@ -4,18 +4,18 @@
     /// This simple class does not have any dependencies, it just takes inputs to perform a calculation
     /// It has been defined as a static class, because someone thought it would be easier than having to inject it into another class through
     /// dependency injection
-    /// Refactor candidate: consolidation with <seealso cref="CalculateIntValue"/>
+    /// Refactor candidate: consolidation with <seealso cref="ThrustCalculator"/>
     /// </summary>
-    internal static class CalculateStringValue
+    internal static class StaticCoordinateCalculator
     {
         /// <summary>
-        /// Pretends to do some string calculation
+        /// We need to calculate the best place to land on the moon to accommodate the given number of sloths and their allocated cuisine
         /// </summary>
-        public static string MakeSomeAwesomeStringWithABigCalculation(string input1, string input2)
+        public static (int latitude, int longitude) CalculateCoordinatesToLand(int numberOfSloths, string foodForJourney)
         {
             // Let's pretend that this function calculates some string value
             // To keep things simple return an empty string
-            return "";
+            return (123,876);
         }
     }
 }

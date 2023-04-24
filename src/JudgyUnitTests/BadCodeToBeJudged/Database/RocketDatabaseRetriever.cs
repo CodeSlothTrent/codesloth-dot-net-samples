@@ -6,39 +6,50 @@ namespace BadCodeToBeJudged.Database
     // To keep its contents simple, the types that it depends on are privitive types or complex types defined within this solution
     // In reality a class like this might depend on an an externally published NuGet package, such as Dapper https://www.nuget.org/packages/Dapper/
     // or Entity Framework https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/
-    internal class DatabaseService
+    internal class RocketDatabaseRetriever
     {
         private PretendDatabaseClient client;
-        private ILogger<DatabaseService> logger;
+        private ILogger<RocketDatabaseRetriever> logger;
 
-        public DatabaseService(PretendDatabaseClient client, ILogger<DatabaseService> logger)
+        public RocketDatabaseRetriever(PretendDatabaseClient client, ILogger<RocketDatabaseRetriever> logger)
         {
             this.client = client ?? throw new ArgumentNullException(nameof(client));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
         /// <summary>
-        /// A method that queries a fake database client for some fake data. It is not critical, so returns null to express that there is no
-        /// result so that the consumer can decide what to do
+        /// A method that queries a fake database client to understand what food the sloths should be fed on their journey
+        /// Because, you know, tailoring your menu to the venue and number of guests makes for a top notch journey to space
+        /// Failing to retrieve this result is not catastrophic though, so we pass a null result back so the user can determine the 
+        /// appropriate course of action
         /// </summary>
-        public async Task<DatabaseResult?> GetNonCriticalDatabaseResult(int id)
+        public async Task<PreferredFoodForJourney?> GetFoodToFeedSlothsOnTheirJourney(int id, int numberOfSloths)
         {
             try
             {
-                return await client.FindDatabaseResult($"select * from table where id = {id}");
+                return await client.FindDatabaseResult($"select * from foodTable where rocketId = {id} and numberOfSlothsToCaterFor = {numberOfSloths}");
             }
             catch(Exception ex)
             {
-                logger.LogError($"Exception caught while retrieving database result. {ex.Message}. Returning empty array.");
+                logger.LogError($"Exception caught while determining food to feed sloths. {ex.Message}.");
                 return null;
             }
+        }
+
+        /// <summary>
+        /// Indicates if the chosen rocket is currently on a mission, launching sloths into space
+        /// </summary>
+        /// <returns></returns>
+        public async Task<bool> RocketIsCurrentlyLaunchingSloths(int rocketId)
+        {
+
         }
 
         /// <summary>
         /// A method that queries a fake database client for some fake data. It is super critical, so we should let any exceptions bubble up
         /// and terminate the current flow
         /// </summary>
-        public async Task<AnotherDatabaseResult> GetCriticalDatabaseResult(int id)
+        public async Task<RocketThrustStatistics> FindRocketStatistics(int rocketId)
         {
             try
             {
