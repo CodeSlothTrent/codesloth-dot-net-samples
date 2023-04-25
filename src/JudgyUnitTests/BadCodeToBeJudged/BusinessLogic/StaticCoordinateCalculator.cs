@@ -8,14 +8,24 @@
     /// </summary>
     internal static class StaticCoordinateCalculator
     {
+        private record CoordinateInputs(int numberOfSloths, string foodForJourney);
+
+        private static (int latitude, int longitude) CalculateCoordinates(CoordinateInputs inputs) => inputs switch 
+        {
+            { numberOfSloths: < 10, foodForJourney: "only slightly toxic leaves" } => (123, 456),
+            { numberOfSloths: < 10, foodForJourney: "sushi" } => (456, 789),
+            { numberOfSloths: > 10, foodForJourney: "sushi" } => (111, 222),
+            { numberOfSloths: > 10, foodForJourney: "only slightly toxic leaves" } => (444, 444),
+            { numberOfSloths: < 10 } => (000, 111),
+            { numberOfSloths: > 10 } => (111, 000)
+        };
         /// <summary>
         /// We need to calculate the best place to land on the moon to accommodate the given number of sloths and their allocated cuisine
         /// </summary>
         public static (int latitude, int longitude) CalculateCoordinatesToLand(int numberOfSloths, string foodForJourney)
         {
-            // Let's pretend that this function calculates some string value
-            // To keep things simple return an empty string
-            return (123,876);
+            var coordinates = new CoordinateInputs(numberOfSloths, foodForJourney);
+            return CalculateCoordinates(coordinates);
         }
     }
 }

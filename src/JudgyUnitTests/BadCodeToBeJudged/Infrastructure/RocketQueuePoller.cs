@@ -33,10 +33,9 @@
         /// Pretends to remove a message from a queue
         /// </summary>
         /// <returns></returns>
-        public async Task<bool> RemoveMessageFromQueue(int messageId)
+        public async Task RemoveMessageFromQueue(int messageId)
         {
             await Task.Delay(TimeSpan.FromMilliseconds(500));
-            return true;
         }
     }
 }

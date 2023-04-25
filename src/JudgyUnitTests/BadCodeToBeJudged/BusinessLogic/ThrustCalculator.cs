@@ -11,9 +11,7 @@
         /// </summary>
         public int CalculateThrust(int input1, int input2, int input3, int input4, int input5, int numberOfSloths)
         {
-            // Let's pretend that this method does a calculation on lots of inputs
-            // To keep things simple though let's just return 1
-            return 1;
+            return (input1 + input2 + input3 + input4 + input5) * numberOfSloths;
         }
     }
 }

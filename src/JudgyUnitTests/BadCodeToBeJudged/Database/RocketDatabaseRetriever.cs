@@ -3,7 +3,6 @@
 namespace BadCodeToBeJudged.Database
 {
     // This class pretends to fetch some data from a database
-    // To keep its contents simple, the types that it depends on are privitive types or complex types defined within this solution
     // In reality a class like this might depend on an an externally published NuGet package, such as Dapper https://www.nuget.org/packages/Dapper/
     // or Entity Framework https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/
     internal class RocketDatabaseRetriever
@@ -34,15 +33,6 @@ namespace BadCodeToBeJudged.Database
                 logger.LogError($"Exception caught while determining food to feed sloths. {ex.Message}.");
                 return null;
             }
-        }
-
-        /// <summary>
-        /// Indicates if the chosen rocket is currently on a mission, launching sloths into space
-        /// </summary>
-        /// <returns></returns>
-        public async Task<bool> RocketIsCurrentlyLaunchingSloths(int rocketId)
-        {
-
         }
 
         /// <summary>

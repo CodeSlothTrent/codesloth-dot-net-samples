@@ -10,7 +10,7 @@ namespace BadCodeToBeJudged
     /// <summary>
     /// The Code Sloth rocket launching station is a very busy department. 
     /// User's signal that they would like to launch one or more sloths into space by posting a message to a launch queue, 
-    /// with information about the designated rocket to launch and how many sloths should be on board.
+    /// with information about the designated rocket's model to launch and how many sloths should be on board.
     /// 
     /// This class has grown in complexity over time, as the launch process has become more complex. A recent push for automated
     /// testing sees an engineer tasked with writing unit tests for the RocketLauncher.
@@ -40,7 +40,7 @@ namespace BadCodeToBeJudged
 
         public async void LaunchRocketsToTheMoon(CancellationToken cancellationToken)
         {
-            while (!cancellationToken.IsCancellationRequested)
+            while (true)
             {
                 var rocketLaunchMessage = await rocketQueuePoller.PollForRocketNeedingLaunch();
                 if (rocketLaunchMessage == null)
@@ -70,7 +70,7 @@ namespace BadCodeToBeJudged
                         }
                         else
                         {
-                            throw new Exception("10 or more sloths require carefully planned food for space travel");
+                            throw new Exception("We can't cater a trip for 10 or more sloths without carefully planned food for space travel!");
                         }
                     }
 
@@ -80,7 +80,7 @@ namespace BadCodeToBeJudged
 
                     if (rocketLaunchResult.launchWasSuccessful)
                     {
-                        var result = await rocketQueuePoller.RemoveMessageFromQueue(rocketLaunchMessage.messageId);
+                        await rocketQueuePoller.RemoveMessageFromQueue(rocketLaunchMessage.messageId);
                     } else
                     {
                         throw new Exception($"Failed to launch rocket {rocketLaunchMessage.RocketModelId} with {rocketLaunchMessage.numberOfSlothsToLaunch} on board. Request id: {rocketLaunchMessage.messageId}. Retrying shortly.");
