@@ -22,7 +22,7 @@
 
         private static string[] foods = new[] { "sushi", "pasta", "only slightly toxic leaves" };
 
-        public async Task<PreferredFoodForJourney> FindFood(string query)
+        public async Task<FoodForJourney> FindFood(string query)
         {
             // Pretend to take time making a db query
             await Task.Delay(TimeSpan.FromMilliseconds(500));
@@ -37,7 +37,7 @@
                 foodsToServe.Add(foods[randomFoodIndex]);
             }
 
-            return new PreferredFoodForJourney { NumberOfCourses = numberOfCourses, Foods = foodsToServe.ToArray() };
+            return new FoodForJourney { NumberOfCourses = numberOfCourses, Foods = foodsToServe.ToArray() };
         }
 
         public async Task<RocketThrustStatistics> FindRocketStatistics(string query)

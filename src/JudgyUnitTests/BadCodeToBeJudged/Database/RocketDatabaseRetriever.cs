@@ -22,7 +22,7 @@ namespace BadCodeToBeJudged.Database
         /// Failing to retrieve this result is not catastrophic though, so don't throw an exception and instead let the user determine the 
         /// appropriate course of action
         /// </summary>
-        public async Task<PreferredFoodForJourney?> GetFoodToFeedSlothsOnTheirJourney(int id, int numberOfSloths)
+        public async Task<FoodForJourney> GetFoodToFeedSlothsOnTheirJourney(int id, int numberOfSloths)
         {
             try
             {
@@ -33,7 +33,7 @@ namespace BadCodeToBeJudged.Database
                 logger.LogError($"Exception caught while determining food to feed sloths. {ex.Message}.");
                 
                 // Red flag
-                return new PreferredFoodForJourney();
+                return new FoodForJourney();
             }
         }
 
