@@ -9,6 +9,8 @@
         private int connectionRetries;
         private int queryRetries;
 
+        private readonly Random random = new Random();
+
         public PretendDatabaseClient(string connectionString, TimeSpan connectionTimeout, TimeSpan queryTimeout, int connectionRetries, int queryRetries)
         {
             this.connectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
@@ -18,20 +20,40 @@
             this.queryRetries = queryRetries;
         }
 
-        public async Task<PreferredFoodForJourney> FindDatabaseResult(string query)
+        private static string[] foods = new[] { "sushi", "pasta", "only slightly toxic leaves" };
+
+        public async Task<PreferredFoodForJourney> FindFood(string query)
         {
             // Pretend to take time making a db query
             await Task.Delay(TimeSpan.FromMilliseconds(500));
-            // Pretend that we find a single result. We don't care about this data for test purposes
-            return new PreferredFoodForJourney("sushi");
+
+            // Return a random result. This demonstrates that we don't have any control over our data source
+            // and indicates that unit testing this component is not possible, as the output is not deterministic
+            var numberOfCourses = random.Next(1, 3);
+            var foodsToServe = new List<string>();
+            for (int i = 0; i < numberOfCourses; i++)
+            {
+                var randomFoodIndex = random.NextInt64(0, foods.Length - 1);
+                foodsToServe.Add(foods[randomFoodIndex]);
+            }
+
+            return new PreferredFoodForJourney { NumberOfCourses = numberOfCourses, Foods = foodsToServe.ToArray() };
         }
 
-        public async Task<RocketThrustStatistics> FindAnotherDatabaseResult(string query)
+        public async Task<RocketThrustStatistics> FindRocketStatistics(string query)
         {
             // Pretend to take time making a db query
             await Task.Delay(TimeSpan.FromMilliseconds(500));
-            // Pretend that we find a single result. We don't care about this data for test purposes
-            return new RocketThrustStatistics(1, 2, 3, 4, 5);
+
+            // Return a random result. This demonstrates that we don't have any control over our data source
+            // and indicates that unit testing this component is not possible, as the output is not deterministic
+            return new RocketThrustStatistics(
+                random.Next(),
+                random.Next(),
+                random.Next(),
+                random.Next(),
+                random.Next()
+            );
         }
     }
 }

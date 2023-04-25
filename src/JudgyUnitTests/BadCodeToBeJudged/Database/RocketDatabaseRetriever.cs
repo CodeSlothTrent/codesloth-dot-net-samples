@@ -19,19 +19,21 @@ namespace BadCodeToBeJudged.Database
         /// <summary>
         /// A method that queries a fake database client to understand what food the sloths should be fed on their journey
         /// Because, you know, tailoring your menu to the venue and number of guests makes for a top notch journey to space
-        /// Failing to retrieve this result is not catastrophic though, so we pass a null result back so the user can determine the 
+        /// Failing to retrieve this result is not catastrophic though, so don't throw an exception and instead let the user determine the 
         /// appropriate course of action
         /// </summary>
         public async Task<PreferredFoodForJourney?> GetFoodToFeedSlothsOnTheirJourney(int id, int numberOfSloths)
         {
             try
             {
-                return await client.FindDatabaseResult($"select * from foodTable where rocketId = {id} and numberOfSlothsToCaterFor = {numberOfSloths}");
+                return await client.FindFood($"select * from foodTable where rocketId = {id} and numberOfSlothsToCaterFor = {numberOfSloths}");
             }
             catch(Exception ex)
             {
                 logger.LogError($"Exception caught while determining food to feed sloths. {ex.Message}.");
-                return null;
+                
+                // Red flag
+                return new PreferredFoodForJourney();
             }
         }
 
@@ -43,7 +45,7 @@ namespace BadCodeToBeJudged.Database
         {
             try
             {
-                return await client.FindAnotherDatabaseResult($"select * from table where id = {id}");
+                return await client.FindRocketStatistics($"select * from table where id = {rocketId}");
             }
             catch (Exception ex)
             {
