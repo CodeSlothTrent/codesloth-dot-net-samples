@@ -70,7 +70,7 @@ namespace BadCodeToBeJudged
                         }
                         else
                         {
-                            throw new Exception("We can't cater a trip for 10 or more sloths without carefully planned food for space travel!");
+                            throw new Exception("We can't cater a trip for 10 or more sloths without carefully planned food for space travel!!");
                         }
                     }
 
