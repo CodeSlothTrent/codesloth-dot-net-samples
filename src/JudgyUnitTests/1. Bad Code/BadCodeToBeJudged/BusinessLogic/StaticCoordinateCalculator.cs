@@ -1,4 +1,6 @@
-﻿namespace BadCodeToBeJudged.BusinessLogic
+﻿using BadCodeToBeJudged.Database;
+
+namespace BadCodeToBeJudged.BusinessLogic
 {
     /// <summary>
     /// This simple class does not have any dependencies, it just takes inputs to perform a calculation
@@ -22,9 +24,9 @@
         /// <summary>
         /// We need to calculate the best place to land on the moon to accommodate the given number of sloths and their allocated cuisine
         /// </summary>
-        public static (int latitude, int longitude) CalculateCoordinatesToLand(int numberOfSloths, string foodForJourney)
+        public static (int latitude, int longitude) CalculateCoordinatesToLand(int numberOfSloths, FoodForJourney foodForJourney)
         {
-            var coordinates = new CoordinateInputs(numberOfSloths, foodForJourney);
+            var coordinates = new CoordinateInputs(numberOfSloths, foodForJourney.Foods.First());
             return CalculateCoordinates(coordinates);
         }
     }

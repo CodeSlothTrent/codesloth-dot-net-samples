@@ -6,6 +6,7 @@ namespace BadCodeToBeJudgedUnitTests
         public void RocketLauncher_ContinuesPolling_WhenNoMessageIsFoundInQueue()
         {
             // Oh wow we can't even begin testing the earliest termination flow at this point
+            // as we will get stuck in an infinite loop!
         }
     }
 }

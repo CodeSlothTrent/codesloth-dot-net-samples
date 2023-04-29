@@ -24,10 +24,10 @@ namespace BadCodeToBeJudged
         private ILogger<RocketLauncher> logger;
 
         public RocketLauncher(
-            ThrustCalculator thrustCalculator, 
-            RocketDatabaseRetriever rocketDatabaseRetriever, 
-            RocketQueuePoller rocketQueuePoller, 
-            RocketLaunchingService rocketLaunchingService, 
+            ThrustCalculator thrustCalculator,
+            RocketDatabaseRetriever rocketDatabaseRetriever,
+            RocketQueuePoller rocketQueuePoller,
+            RocketLaunchingService rocketLaunchingService,
             ILogger<RocketLauncher> logger
         )
         {
@@ -38,7 +38,7 @@ namespace BadCodeToBeJudged
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
 
-        public async void LaunchRocketsToTheMoon(CancellationToken cancellationToken)
+        public async Task LaunchRocketsToTheMoon()
         {
             while (true)
             {
@@ -61,12 +61,12 @@ namespace BadCodeToBeJudged
                         rocketLaunchMessage.numberOfSlothsToLaunch
                     );
 
-                    var preferredFoodForJourney = await rocketDatabaseRetriever.GetFoodToFeedSlothsOnTheirJourney(rocketLaunchMessage.RocketModelId, rocketLaunchMessage.numberOfSlothsToLaunch);
-                    if (preferredFoodForJourney == null)
+                    var foodForJourney = await rocketDatabaseRetriever.GetFoodToFeedSlothsOnTheirJourney(rocketLaunchMessage.RocketModelId, rocketLaunchMessage.numberOfSlothsToLaunch);
+                    if (foodForJourney == null)
                     {
                         if (rocketLaunchMessage.numberOfSlothsToLaunch < 10)
                         {
-                            preferredFoodForJourney = new PreferredFoodForJourney("only slightly toxic leaves");
+                            foodForJourney = new FoodForJourney { NumberOfCourses = 1, Foods = new[] { "only slightly toxic leaves" } };
                         }
                         else
                         {
@@ -74,14 +74,15 @@ namespace BadCodeToBeJudged
                         }
                     }
 
-                    var coordinatesToLandOnMoon = StaticCoordinateCalculator.CalculateCoordinatesToLand(rocketLaunchMessage.numberOfSlothsToLaunch, preferredFoodForJourney.typeOfFoodToFeedSloths);
+                    var coordinatesToLandOnMoon = StaticCoordinateCalculator.CalculateCoordinatesToLand(rocketLaunchMessage.numberOfSlothsToLaunch, foodForJourney);
 
-                    var rocketLaunchResult = await rocketLaunchingService.LaunchRocket(rocketLaunchMessage.RocketModelId, rocketLaunchMessage.numberOfSlothsToLaunch, requiredThrust, preferredFoodForJourney.typeOfFoodToFeedSloths);
+                    var rocketLaunchResult = await rocketLaunchingService.LaunchRocket(rocketLaunchMessage.RocketModelId, rocketLaunchMessage.numberOfSlothsToLaunch, requiredThrust, foodForJourney);
 
                     if (rocketLaunchResult.launchWasSuccessful)
                     {
                         await rocketQueuePoller.RemoveMessageFromQueue(rocketLaunchMessage.messageId);
-                    } else
+                    }
+                    else
                     {
                         throw new Exception($"Failed to launch rocket {rocketLaunchMessage.RocketModelId} with {rocketLaunchMessage.numberOfSlothsToLaunch} on board. Request id: {rocketLaunchMessage.messageId}. Retrying shortly.");
                     }

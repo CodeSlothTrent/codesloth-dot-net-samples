@@ -19,6 +19,7 @@
 
         /// <summary>
         /// Pretends to fetch a message from a queue. Returns null if a message is not found in expected time
+        /// Does not throw exceptions
         /// </summary>
         /// <returns></returns>
         public async Task<RocketLaunchMessage> PollForRocketNeedingLaunch()
