@@ -5,9 +5,9 @@ namespace BadCodeToBeJudged
 {
     public class RocketLauncher : BackgroundService
     {
-        private RocketLaunchingLogic rocketLaunchingLogic;
+        private IRocketLaunchingLogic rocketLaunchingLogic;
 
-        public RocketLauncher(RocketLaunchingLogic rocketLaunchingLogic)
+        public RocketLauncher(IRocketLaunchingLogic rocketLaunchingLogic)
         {
             this.rocketLaunchingLogic = rocketLaunchingLogic ?? throw new ArgumentNullException(nameof(rocketLaunchingLogic));
         }

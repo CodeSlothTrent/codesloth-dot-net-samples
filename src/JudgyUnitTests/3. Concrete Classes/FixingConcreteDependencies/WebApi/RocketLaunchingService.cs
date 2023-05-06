@@ -2,7 +2,7 @@
 
 namespace BadCodeToBeJudged.WebApi
 {
-    public class RocketLaunchingService
+    public class RocketLaunchingService : IRocketLaunchingService
     {
         private HttpClient client;
 

@@ -8,15 +8,15 @@ using System.Text.Json;
 
 namespace FixingTheInfiniteLoop.BusinessLogic
 {
-    public class RocketLaunchingLogic
+    public class RocketLaunchingLogic : IRocketLaunchingLogic
     {
-        private ThrustCalculator thrustCalculator;
-        private RocketDatabaseRetriever rocketDatabaseRetriever;
-        private RocketQueuePoller rocketQueuePoller;
-        private RocketLaunchingService rocketLaunchingService;
+        private IThrustCalculator thrustCalculator;
+        private IRocketDatabaseRetriever rocketDatabaseRetriever;
+        private IRocketQueuePoller rocketQueuePoller;
+        private IRocketLaunchingService rocketLaunchingService;
         private ILogger<RocketLauncher> logger;
 
-        public RocketLaunchingLogic(ThrustCalculator thrustCalculator, RocketDatabaseRetriever rocketDatabaseRetriever, RocketQueuePoller rocketQueuePoller, RocketLaunchingService rocketLaunchingService, ILogger<RocketLauncher> logger)
+        public RocketLaunchingLogic(IThrustCalculator thrustCalculator, IRocketDatabaseRetriever rocketDatabaseRetriever, IRocketQueuePoller rocketQueuePoller, IRocketLaunchingService rocketLaunchingService, ILogger<RocketLauncher> logger)
         {
             this.thrustCalculator = thrustCalculator ?? throw new ArgumentNullException(nameof(thrustCalculator));
             this.rocketDatabaseRetriever = rocketDatabaseRetriever ?? throw new ArgumentNullException(nameof(rocketDatabaseRetriever));

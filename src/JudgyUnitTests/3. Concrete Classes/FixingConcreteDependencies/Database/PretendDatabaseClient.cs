@@ -1,7 +1,7 @@
 ﻿namespace BadCodeToBeJudged.Database
 {
     // This class is a pretend database client, likely authored by an external party
-    public class PretendDatabaseClient
+    public class PretendDatabaseClient : IPretendDatabaseClient
     {
         private string connectionString;
         private TimeSpan connectionTimeout;

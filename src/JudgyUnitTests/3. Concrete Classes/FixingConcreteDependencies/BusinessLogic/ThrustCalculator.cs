@@ -4,7 +4,7 @@
     /// This simple class does not have any dependencies, it just takes inputs to perform a calculation
     /// Refactor candidate: consolidation with <seealso cref="StaticCoordinateCalculator"/>
     /// </summary>
-    public class ThrustCalculator
+    public class ThrustCalculator : IThrustCalculator
     {
         /// <summary>
         /// Calculate the thrust that is required to get the given number of sloths to the moon for the chosen rocket

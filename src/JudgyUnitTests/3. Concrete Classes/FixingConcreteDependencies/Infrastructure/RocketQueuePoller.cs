@@ -4,7 +4,7 @@
     // To keep its contents simple, the types that it depends on are privitive types or complex types defined within this solution
     // In reality a class like this might depend on an API client wrapper publish via a NuGet package, such as AWS SQS's IAmazonSQS client
     // https://docs.aws.amazon.com/sdk-for-net/v3/developer-guide/ReceiveMessage.html
-    public class RocketQueuePoller
+    public class RocketQueuePoller : IRocketQueuePoller
     {
         private int dependencyOne;
         private int dependencyTwo;

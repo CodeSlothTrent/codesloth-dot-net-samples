@@ -5,7 +5,7 @@ namespace BadCodeToBeJudged.Database
     // This class pretends to fetch some data from a database
     // In reality a class like this might depend on an an externally published NuGet package, such as Dapper https://www.nuget.org/packages/Dapper/
     // or Entity Framework https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/
-    public class RocketDatabaseRetriever
+    public class RocketDatabaseRetriever : IRocketDatabaseRetriever
     {
         private PretendDatabaseClient client;
         private ILogger<RocketDatabaseRetriever> logger;
@@ -28,10 +28,10 @@ namespace BadCodeToBeJudged.Database
             {
                 return await client.FindFood($"select * from foodTable where rocketId = {id} and numberOfSlothsToCaterFor = {numberOfSloths}");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 logger.LogError($"Exception caught while determining food to feed sloths. {ex.Message}.");
-                
+
                 // Red flag
                 return new FoodForJourney();
             }
