@@ -12,9 +12,9 @@ namespace FixingConcreteDependencies.BusinessLogic
         private IRocketDatabaseRetriever rocketDatabaseRetriever;
         private IRocketQueuePoller rocketQueuePoller;
         private IRocketLaunchingService rocketLaunchingService;
-        private ILogger<RocketLauncher> logger;
+        private ILogger<RocketLaunchingLogic> logger;
 
-        public RocketLaunchingLogic(IThrustCalculator thrustCalculator, IRocketDatabaseRetriever rocketDatabaseRetriever, IRocketQueuePoller rocketQueuePoller, IRocketLaunchingService rocketLaunchingService, ILogger<RocketLauncher> logger)
+        public RocketLaunchingLogic(IThrustCalculator thrustCalculator, IRocketDatabaseRetriever rocketDatabaseRetriever, IRocketQueuePoller rocketQueuePoller, IRocketLaunchingService rocketLaunchingService, ILogger<RocketLaunchingLogic> logger)
         {
             this.thrustCalculator = thrustCalculator ?? throw new ArgumentNullException(nameof(thrustCalculator));
             this.rocketDatabaseRetriever = rocketDatabaseRetriever ?? throw new ArgumentNullException(nameof(rocketDatabaseRetriever));

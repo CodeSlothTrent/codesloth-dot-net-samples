@@ -1,43 +1,34 @@
-﻿using FixingConcreteDependencies;
-using FixingConcreteDependencies.BusinessLogic;
+﻿using FixingConcreteDependencies.BusinessLogic;
 using FixingConcreteDependencies.Database;
 using FixingConcreteDependencies.Infrastructure;
 using FixingConcreteDependencies.WebApi;
 using Microsoft.Extensions.Logging;
+using Moq;
 
 namespace FixingConcreteDependenciesUnitTests
 {
+    /// <summary>
+    /// Test setup has become much simpler for our RocketLaunchingLogic class now!
+    /// </summary>
     public class RocketLaunchingLogicTests
     {
-        /// <summary>
-        /// Now we can focus on writing tests for the rocket launching logic...or can we?
-        /// </summary>
         [Fact]
-        public async Task RocketLaunchingLogic_DoesSomeStuff()
+        public async Task RocketLaunchingLogic_TriesToLaunchARocketAgain_IfItDoesNotInitiallyFindOne()
         {
-            var thrustCalculator = new ThrustCalculator();
-
-            var pretendDatabaseClient = new PretendDatabaseClient(
-                "connection string",
-                TimeSpan.FromSeconds(10),
-                TimeSpan.FromSeconds(60),
-                3,
-                5
+            var thrustCalculatorMock = new Mock<IThrustCalculator>();           
+            var rocketDatabaseRetrieverMock = new Mock<IRocketDatabaseRetriever>();
+            var rocketQueuePollerMock = new Mock<IRocketQueuePoller>();
+            var rocketLaunchingServiceMock = new Mock<IRocketLaunchingService>();
+            var loggerMock = new Mock<ILogger<RocketLaunchingLogic>>();
+            var rocketLaunchingLogic = new RocketLaunchingLogic(
+                thrustCalculatorMock.Object, 
+                rocketDatabaseRetrieverMock.Object,
+                rocketQueuePollerMock.Object,
+                rocketLaunchingServiceMock.Object,
+                loggerMock.Object
             );
-            var loggerFactory = LoggerFactory.Create((loggingBuilder) => { });
-            var rocketDatabaseRetrieverLogger = loggerFactory.CreateLogger<RocketDatabaseRetriever>();
-            var rocketDatabaseRetriever = new RocketDatabaseRetriever(pretendDatabaseClient, rocketDatabaseRetrieverLogger);
 
-            var rocketQueuePoller = new RocketQueuePoller(1, 2, "dependency info");
-
-            var httpClient = new HttpClient();
-            var rocketLaunchingService = new RocketLaunchingService(httpClient);
-
-            var rocketLauncherLogger = loggerFactory.CreateLogger<RocketLauncher>();
-            var rocketLaunchingLogic = new RocketLaunchingLogic(thrustCalculator, rocketDatabaseRetriever, rocketQueuePoller, rocketLaunchingService, rocketLauncherLogger);
-
-            // Oh my... This much test setup does not even deserve a pretend call to our function!
-            // Arrange (in Arrange, Act, Assert) should be concise. This much dependency construction is a code smell
+            // Oh no! This test will literally take 5 or more seconds to execute due to the async Task.Delay that it uses
         }
     }
 }
