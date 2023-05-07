@@ -1,7 +1,7 @@
 ﻿using FixingTheInfiniteLoop.BusinessLogic;
 using Microsoft.Extensions.Hosting;
 
-namespace BadCodeToBeJudged
+namespace FixingTheInfiniteLoop
 {
     public class RocketLauncher : BackgroundService
     {

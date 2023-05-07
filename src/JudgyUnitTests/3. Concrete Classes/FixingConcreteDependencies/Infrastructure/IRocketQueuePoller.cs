@@ -1,4 +1,4 @@
-﻿namespace BadCodeToBeJudged.Infrastructure
+﻿namespace FixingConcreteDependencies.Infrastructure
 {
     public interface IRocketQueuePoller
     {

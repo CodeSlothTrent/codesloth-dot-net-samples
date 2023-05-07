@@ -1,6 +1,6 @@
-﻿using BadCodeToBeJudged.Database;
+﻿using FixingConcreteDependencies.Database;
 
-namespace BadCodeToBeJudged.WebApi
+namespace FixingConcreteDependencies.WebApi
 {
     public class RocketLaunchingService : IRocketLaunchingService
     {

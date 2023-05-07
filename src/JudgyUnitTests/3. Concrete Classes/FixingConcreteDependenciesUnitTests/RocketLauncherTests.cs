@@ -1,8 +1,6 @@
-﻿using BadCodeToBeJudged;
-using FixingTheInfiniteLoop.BusinessLogic;
-using FluentAssertions;
+﻿using FluentAssertions;
 
-namespace FixingTheInfiniteLoopUnitTests
+namespace FixingConcreteDependenciesUnitTests
 {
     public class RocketLauncherTests
     {
@@ -13,13 +11,13 @@ namespace FixingTheInfiniteLoopUnitTests
         [Fact]
         public async Task RocketLauncher_StopsLaunchingRockets_WhenCancellationTokenIsSignaled()
         {
-            var rocketLaunchingLogic = new RocketLaunchingLogic(null,null,null,null,null);
+            var rocketLaunchingLogic = new RocketLaunchingLogic(null, null, null, null, null);
             var rocketLauncher = new RocketLauncher(rocketLaunchingLogic);
-            
+
             var cancellationTokenSource = new CancellationTokenSource();
             var cancellationToken = cancellationTokenSource.Token;
             cancellationTokenSource.Cancel();
-            
+
             await rocketLauncher.StartAsync(cancellationToken);
 
             // A very silly assertion to confirm that we exited from StartAsync

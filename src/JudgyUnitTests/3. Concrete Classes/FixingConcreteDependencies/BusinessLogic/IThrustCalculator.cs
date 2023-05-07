@@ -1,4 +1,4 @@
-﻿namespace BadCodeToBeJudged.BusinessLogic
+﻿namespace FixingConcreteDependencies.BusinessLogic
 {
     public interface IThrustCalculator
     {

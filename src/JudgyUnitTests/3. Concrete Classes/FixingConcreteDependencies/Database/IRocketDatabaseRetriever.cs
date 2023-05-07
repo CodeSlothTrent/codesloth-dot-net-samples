@@ -1,4 +1,4 @@
-﻿namespace BadCodeToBeJudged.Database
+﻿namespace FixingConcreteDependencies.Database
 {
     public interface IRocketDatabaseRetriever
     {

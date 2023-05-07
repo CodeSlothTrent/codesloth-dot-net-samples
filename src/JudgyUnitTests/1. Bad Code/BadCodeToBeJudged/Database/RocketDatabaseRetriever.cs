@@ -28,10 +28,10 @@ namespace BadCodeToBeJudged.Database
             {
                 return await client.FindFood($"select * from foodTable where rocketId = {id} and numberOfSlothsToCaterFor = {numberOfSloths}");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 logger.LogError($"Exception caught while determining food to feed sloths. {ex.Message}.");
-                
+
                 // Red flag
                 return new FoodForJourney();
             }

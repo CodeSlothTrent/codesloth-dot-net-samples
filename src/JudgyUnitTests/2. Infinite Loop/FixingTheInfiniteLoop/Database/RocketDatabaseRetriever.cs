@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace BadCodeToBeJudged.Database
+namespace FixingTheInfiniteLoop.Database
 {
     // This class pretends to fetch some data from a database
     // In reality a class like this might depend on an an externally published NuGet package, such as Dapper https://www.nuget.org/packages/Dapper/
@@ -28,10 +28,10 @@ namespace BadCodeToBeJudged.Database
             {
                 return await client.FindFood($"select * from foodTable where rocketId = {id} and numberOfSlothsToCaterFor = {numberOfSloths}");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 logger.LogError($"Exception caught while determining food to feed sloths. {ex.Message}.");
-                
+
                 // Red flag
                 return new FoodForJourney();
             }

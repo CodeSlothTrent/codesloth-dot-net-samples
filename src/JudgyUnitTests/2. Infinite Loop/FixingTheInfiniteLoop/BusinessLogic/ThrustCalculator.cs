@@ -1,4 +1,4 @@
-﻿namespace BadCodeToBeJudged.BusinessLogic
+﻿namespace FixingTheInfiniteLoop.BusinessLogic
 {
     /// <summary>
     /// This simple class does not have any dependencies, it just takes inputs to perform a calculation

@@ -1,4 +1,4 @@
-﻿namespace BadCodeToBeJudged.Database
+﻿namespace FixingConcreteDependencies.Database
 {
     // This class is a pretend database client, likely authored by an external party
     public class PretendDatabaseClient : IPretendDatabaseClient

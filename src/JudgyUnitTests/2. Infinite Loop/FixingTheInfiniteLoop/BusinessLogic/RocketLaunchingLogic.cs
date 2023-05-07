@@ -1,8 +1,6 @@
-﻿using BadCodeToBeJudged.BusinessLogic;
-using BadCodeToBeJudged.Database;
-using BadCodeToBeJudged.Infrastructure;
-using BadCodeToBeJudged.WebApi;
-using BadCodeToBeJudged;
+﻿using FixingTheInfiniteLoop.Database;
+using FixingTheInfiniteLoop.Infrastructure;
+using FixingTheInfiniteLoop.WebApi;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
 

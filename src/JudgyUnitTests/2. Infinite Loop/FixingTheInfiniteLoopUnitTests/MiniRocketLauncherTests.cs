@@ -1,4 +1,3 @@
-using BadCodeToBeJudged;
 using FluentAssertions;
 
 namespace FixingTheInfiniteLoopUnitTests

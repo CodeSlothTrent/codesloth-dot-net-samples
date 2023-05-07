@@ -1,12 +1,10 @@
-﻿using BadCodeToBeJudged.BusinessLogic;
-using BadCodeToBeJudged.Database;
-using BadCodeToBeJudged.Infrastructure;
-using BadCodeToBeJudged.WebApi;
-using BadCodeToBeJudged;
+﻿using FixingConcreteDependencies.Database;
+using FixingConcreteDependencies.Infrastructure;
+using FixingConcreteDependencies.WebApi;
 using Microsoft.Extensions.Logging;
 using System.Text.Json;
 
-namespace FixingTheInfiniteLoop.BusinessLogic
+namespace FixingConcreteDependencies.BusinessLogic
 {
     public class RocketLaunchingLogic : IRocketLaunchingLogic
     {

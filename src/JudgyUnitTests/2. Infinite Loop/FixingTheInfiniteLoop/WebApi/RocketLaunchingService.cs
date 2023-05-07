@@ -1,6 +1,6 @@
-﻿using BadCodeToBeJudged.Database;
+﻿using FixingTheInfiniteLoop.Database;
 
-namespace BadCodeToBeJudged.WebApi
+namespace FixingTheInfiniteLoop.WebApi
 {
     public class RocketLaunchingService
     {

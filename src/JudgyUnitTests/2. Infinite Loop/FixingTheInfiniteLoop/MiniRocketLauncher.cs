@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Hosting;
 
-namespace BadCodeToBeJudged
+namespace FixingTheInfiniteLoop
 {
     public class MiniRocketLauncher : BackgroundService
     {

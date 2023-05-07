@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace BadCodeToBeJudged.Database
+namespace FixingConcreteDependencies.Database
 {
     // This class pretends to fetch some data from a database
     // In reality a class like this might depend on an an externally published NuGet package, such as Dapper https://www.nuget.org/packages/Dapper/

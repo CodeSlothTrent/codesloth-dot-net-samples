@@ -1,4 +1,4 @@
-﻿namespace BadCodeToBeJudged.Database
+﻿namespace FixingTheInfiniteLoop.Database
 {
     public record FoodForJourney()
     {

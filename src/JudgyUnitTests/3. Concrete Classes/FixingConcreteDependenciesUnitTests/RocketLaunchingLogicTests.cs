@@ -1,12 +1,8 @@
-﻿using BadCodeToBeJudged;
-using BadCodeToBeJudged.BusinessLogic;
-using BadCodeToBeJudged.Database;
-using BadCodeToBeJudged.Infrastructure;
-using BadCodeToBeJudged.WebApi;
-using FixingTheInfiniteLoop.BusinessLogic;
+﻿using FixingConcreteDependencies;
+using FixingConcreteDependencies.Database;
 using Microsoft.Extensions.Logging;
 
-namespace FixingTheInfiniteLoopUnitTests
+namespace FixingConcreteDependenciesUnitTests
 {
     public class RocketLaunchingLogicTests
     {
@@ -26,7 +22,7 @@ namespace FixingTheInfiniteLoopUnitTests
                 5
             );
             var loggerFactory = LoggerFactory.Create((loggingBuilder) => { });
-            var rocketDatabaseRetrieverLogger = LoggerFactoryExtensions.CreateLogger<RocketDatabaseRetriever>(loggerFactory);
+            var rocketDatabaseRetrieverLogger = loggerFactory.CreateLogger<RocketDatabaseRetriever>();
             var rocketDatabaseRetriever = new RocketDatabaseRetriever(pretendDatabaseClient, rocketDatabaseRetrieverLogger);
 
             var rocketQueuePoller = new RocketQueuePoller(1, 2, "dependency info");
@@ -34,7 +30,7 @@ namespace FixingTheInfiniteLoopUnitTests
             var httpClient = new HttpClient();
             var rocketLaunchingService = new RocketLaunchingService(httpClient);
 
-            var rocketLauncherLogger = LoggerFactoryExtensions.CreateLogger<RocketLauncher>(loggerFactory);
+            var rocketLauncherLogger = loggerFactory.CreateLogger<RocketLauncher>();
             var rocketLaunchingLogic = new RocketLaunchingLogic(thrustCalculator, rocketDatabaseRetriever, rocketQueuePoller, rocketLaunchingService, rocketLauncherLogger);
 
             // Oh my... This much test setup does not even deserve a pretend call to our function!

@@ -1,4 +1,4 @@
-﻿namespace FixingTheInfiniteLoop.BusinessLogic
+﻿namespace FixingConcreteDependencies.BusinessLogic
 {
     public interface IRocketLaunchingLogic
     {

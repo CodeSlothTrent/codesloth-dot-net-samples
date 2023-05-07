@@ -1,9 +1,6 @@
-﻿using BadCodeToBeJudged;
-using BadCodeToBeJudged.BusinessLogic;
-using BadCodeToBeJudged.Database;
-using BadCodeToBeJudged.Infrastructure;
-using BadCodeToBeJudged.WebApi;
+﻿using FixingTheInfiniteLoop;
 using FixingTheInfiniteLoop.BusinessLogic;
+using FixingTheInfiniteLoop.Database;
 using Microsoft.Extensions.Logging;
 
 namespace FixingTheInfiniteLoopUnitTests
