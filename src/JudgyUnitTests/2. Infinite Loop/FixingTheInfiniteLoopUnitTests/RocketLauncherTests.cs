@@ -1,4 +1,5 @@
-﻿using FixingTheInfiniteLoop.BusinessLogic;
+﻿using FixingTheInfiniteLoop;
+using FixingTheInfiniteLoop.BusinessLogic;
 using FluentAssertions;
 
 namespace FixingTheInfiniteLoopUnitTests

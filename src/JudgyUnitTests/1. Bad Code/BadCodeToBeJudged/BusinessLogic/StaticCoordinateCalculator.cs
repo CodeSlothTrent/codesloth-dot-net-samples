@@ -19,7 +19,7 @@ namespace BadCodeToBeJudged.BusinessLogic
             { numberOfSloths: > 10, foodForJourney: "sushi" } => (111, 222),
             { numberOfSloths: > 10, foodForJourney: "only slightly toxic leaves" } => (444, 444),
             { numberOfSloths: < 10 } => (000, 111),
-            { numberOfSloths: > 10 } => (111, 000)
+            { numberOfSloths: >= 10 } => (111, 000)
         };
         /// <summary>
         /// We need to calculate the best place to land on the moon to accommodate the given number of sloths and their allocated cuisine

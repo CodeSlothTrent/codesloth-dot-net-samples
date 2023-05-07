@@ -1,3 +1,4 @@
+using FixingTheInfiniteLoop;
 using FluentAssertions;
 
 namespace FixingTheInfiniteLoopUnitTests

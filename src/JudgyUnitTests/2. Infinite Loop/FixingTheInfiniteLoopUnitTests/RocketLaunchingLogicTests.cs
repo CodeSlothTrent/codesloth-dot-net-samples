@@ -1,6 +1,8 @@
 ﻿using FixingTheInfiniteLoop;
 using FixingTheInfiniteLoop.BusinessLogic;
 using FixingTheInfiniteLoop.Database;
+using FixingTheInfiniteLoop.Infrastructure;
+using FixingTheInfiniteLoop.WebApi;
 using Microsoft.Extensions.Logging;
 
 namespace FixingTheInfiniteLoopUnitTests

@@ -1,5 +1,8 @@
 ﻿using FixingConcreteDependencies;
+using FixingConcreteDependencies.BusinessLogic;
 using FixingConcreteDependencies.Database;
+using FixingConcreteDependencies.Infrastructure;
+using FixingConcreteDependencies.WebApi;
 using Microsoft.Extensions.Logging;
 
 namespace FixingConcreteDependenciesUnitTests
