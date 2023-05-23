@@ -19,9 +19,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FixingTheInfiniteLoopUnitTe
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Concrete Classes", "3. Concrete Classes", "{AA5D7595-6F66-4DD3-B0E1-36211824FCA3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FixingConcreteDependencies", "JudgyUnitTests\3. Concrete Classes\FixingConcreteDependencies\FixingConcreteDependencies.csproj", "{D0C48F5E-80AA-4C08-BA60-9DAFB4CA34BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FixingConcreteDependencies", "JudgyUnitTests\3. Concrete Classes\FixingConcreteDependencies\FixingConcreteDependencies.csproj", "{D0C48F5E-80AA-4C08-BA60-9DAFB4CA34BE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FixingConcreteDependenciesUnitTests", "JudgyUnitTests\3. Concrete Classes\FixingConcreteDependenciesUnitTests\FixingConcreteDependenciesUnitTests.csproj", "{2ACBAC6B-3E83-4403-AAA6-B3176AE2DA34}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FixingConcreteDependenciesUnitTests", "JudgyUnitTests\3. Concrete Classes\FixingConcreteDependenciesUnitTests\FixingConcreteDependenciesUnitTests.csproj", "{2ACBAC6B-3E83-4403-AAA6-B3176AE2DA34}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. Static Code", "4. Static Code", "{3C82E431-44D4-44B0-8DC4-19D01B0D37D5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FixingStaticCode", "JudgyUnitTests\4. Static Code\FixingStaticCode\FixingStaticCode.csproj", "{5F783F3B-976E-4156-8EF3-B259608407DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FixingStaticCodeUnitTests", "JudgyUnitTests\4. Static Code\FixingStaticCodeUnitTests\FixingStaticCodeUnitTests.csproj", "{D8C15125-F5FF-4D73-88C0-E1C227ED8123}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +59,14 @@ Global
 		{2ACBAC6B-3E83-4403-AAA6-B3176AE2DA34}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2ACBAC6B-3E83-4403-AAA6-B3176AE2DA34}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2ACBAC6B-3E83-4403-AAA6-B3176AE2DA34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F783F3B-976E-4156-8EF3-B259608407DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F783F3B-976E-4156-8EF3-B259608407DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F783F3B-976E-4156-8EF3-B259608407DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F783F3B-976E-4156-8EF3-B259608407DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8C15125-F5FF-4D73-88C0-E1C227ED8123}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8C15125-F5FF-4D73-88C0-E1C227ED8123}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8C15125-F5FF-4D73-88C0-E1C227ED8123}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8C15125-F5FF-4D73-88C0-E1C227ED8123}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -67,6 +81,9 @@ Global
 		{AA5D7595-6F66-4DD3-B0E1-36211824FCA3} = {1C9C632E-01BF-4BCD-A194-26397F0D619A}
 		{D0C48F5E-80AA-4C08-BA60-9DAFB4CA34BE} = {AA5D7595-6F66-4DD3-B0E1-36211824FCA3}
 		{2ACBAC6B-3E83-4403-AAA6-B3176AE2DA34} = {AA5D7595-6F66-4DD3-B0E1-36211824FCA3}
+		{3C82E431-44D4-44B0-8DC4-19D01B0D37D5} = {1C9C632E-01BF-4BCD-A194-26397F0D619A}
+		{5F783F3B-976E-4156-8EF3-B259608407DD} = {3C82E431-44D4-44B0-8DC4-19D01B0D37D5}
+		{D8C15125-F5FF-4D73-88C0-E1C227ED8123} = {3C82E431-44D4-44B0-8DC4-19D01B0D37D5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DF4755CD-6F91-4814-AB5A-5908E94A2710}

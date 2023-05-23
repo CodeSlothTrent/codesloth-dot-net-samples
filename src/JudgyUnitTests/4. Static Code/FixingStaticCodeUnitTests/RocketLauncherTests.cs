@@ -1,9 +1,9 @@
-﻿using FixingConcreteDependencies;
-using FixingConcreteDependencies.BusinessLogic;
+﻿using FixingStaticCode;
+using FixingStaticCode.BusinessLogic;
 using FluentAssertions;
 using Moq;
 
-namespace FixingConcreteDependenciesUnitTests
+namespace FixingStaticCodeUnitTests
 {
     /// <summary>
     /// Now that we depend on an interface we have the ability to write more unit tests
