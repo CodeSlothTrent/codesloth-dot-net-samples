@@ -2,7 +2,6 @@
 using FluentAssertions;
 using Microsoft.AspNetCore.Authentication;
 using Moq;
-using System.Threading;
 
 namespace FixingStaticCodeUnitTests
 {
@@ -60,6 +59,10 @@ namespace FixingStaticCodeUnitTests
         [InlineData(999999999, 500000000, 1, 10, 3, 999999999, "2023-01-01T01:59:59Z", "Arithmetic overflow with max values before 2am UTC")]
         [InlineData(999999999, 500000000, 1, 10, 3, 999999999, "2023-01-01T02:00:00Z", "Arithmetic overflow with max values at 2am UTC")]
         [InlineData(999999999, 500000000, 1, 10, 3, 999999999, "2023-01-01T03:00:00Z", "Arithmetic overflow with max values after 2am UTC")]
+        // Case 3 - testing negative overflow
+        [InlineData(int.MaxValue, int.MaxValue, int.MaxValue, int.MaxValue, int.MaxValue, -1 * int.MaxValue, "2023-01-01T01:59:59Z", "Arithmetic overflow with max values before 2am UTC")]
+        [InlineData(int.MaxValue, int.MaxValue, int.MaxValue, int.MaxValue, int.MaxValue, -1 * int.MaxValue, "2023-01-01T02:00:00Z", "Arithmetic overflow with max values at 2am UTC")]
+        [InlineData(int.MaxValue, int.MaxValue, int.MaxValue, int.MaxValue, int.MaxValue, -1 * int.MaxValue, "2023-01-01T03:00:00Z", "Arithmetic overflow with max values after 2am UTC")]
         public void CalculateThrust_ThrowsOverflowException_WhenArithmeticOverflowHappens(
             int thrustValue1, int thrustValue2, int thrustValue3, int thrustValue4, int thrustValue5, int numberOfSloths,
             string timeString,

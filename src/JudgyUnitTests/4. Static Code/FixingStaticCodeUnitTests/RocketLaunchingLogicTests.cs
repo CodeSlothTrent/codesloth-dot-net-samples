@@ -8,7 +8,7 @@ using Moq;
 namespace FixingStaticCodeUnitTests
 {
     /// <summary>
-    /// Test setup has become much simpler for our RocketLaunchingLogic class now!
+    /// Oh my lordy wordy! We are now drowning in dependencies for this class.
     /// </summary>
     public class RocketLaunchingLogicTests
     {
@@ -32,7 +32,8 @@ namespace FixingStaticCodeUnitTests
                 asyncDelayMock.Object
             );
 
-            // Oh no! This test will literally take 5 or more seconds to execute due to the async Task.Delay that it uses
+            // Wow! We now have 7 different dependencies that we need to orchestrate in order to test this class.
+            // This is a code smell that we should fix before we try to write some tests here.
         }
     }
 }
