@@ -1,6 +1,6 @@
 ﻿namespace Simplicity.BusinessLogic
 {
-    public interface IRocketLaunchingLogic
+    public interface IRocketLaunchingCoordinator
     {
         Task TryToLaunchARocket();
     }

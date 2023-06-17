@@ -3,11 +3,11 @@ using Simplicity.BusinessLogic;
 
 namespace Simplicity
 {
-    public class RocketLauncher : BackgroundService
+    public class RocketLaunchingBackgroundService : BackgroundService
     {
-        private IRocketLaunchingLogic rocketLaunchingLogic;
+        private IRocketLaunchingCoordinator rocketLaunchingLogic;
 
-        public RocketLauncher(IRocketLaunchingLogic rocketLaunchingLogic)
+        public RocketLaunchingBackgroundService(IRocketLaunchingCoordinator rocketLaunchingLogic)
         {
             this.rocketLaunchingLogic = rocketLaunchingLogic ?? throw new ArgumentNullException(nameof(rocketLaunchingLogic));
         }

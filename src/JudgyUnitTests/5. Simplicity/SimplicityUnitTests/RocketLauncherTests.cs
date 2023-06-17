@@ -17,8 +17,8 @@ namespace SimplicityUnitTests
         [Fact]
         public async Task RocketLauncher_DoesNotLaunchARocket_WhenGivenACancelledToken()
         {
-            var rocketLaunchingLogicMock = new Mock<IRocketLaunchingLogic>();
-            var rocketLauncher = new RocketLauncher(rocketLaunchingLogicMock.Object);
+            var rocketLaunchingLogicMock = new Mock<IRocketLaunchingCoordinator>();
+            var rocketLauncher = new RocketLaunchingBackgroundService(rocketLaunchingLogicMock.Object);
 
             var cancellationTokenSource = new CancellationTokenSource();
             var cancellationToken = cancellationTokenSource.Token;
@@ -36,8 +36,8 @@ namespace SimplicityUnitTests
         [Fact]
         public async Task RocketLauncher_StopsLaunchingRockets_WhenCancellationTokenIsSignaled()
         {
-            var rocketLaunchingLogicMock = new Mock<IRocketLaunchingLogic>();
-            var rocketLauncher = new RocketLauncher(rocketLaunchingLogicMock.Object);
+            var rocketLaunchingLogicMock = new Mock<IRocketLaunchingCoordinator>();
+            var rocketLauncher = new RocketLaunchingBackgroundService(rocketLaunchingLogicMock.Object);
 
             var cancellationTokenSource = new CancellationTokenSource();
             var cancellationToken = cancellationTokenSource.Token;
@@ -55,14 +55,14 @@ namespace SimplicityUnitTests
         [Fact]
         public async Task RocketLauncher_PropagatesUnhandledException_WhenTheyAreThrownByRocketLaunchingLogic()
         {
-            var rocketLaunchingLogicMock = new Mock<IRocketLaunchingLogic>();
+            var rocketLaunchingLogicMock = new Mock<IRocketLaunchingCoordinator>();
 
             // When the rocket launching logic interface is invoked, our mock will throw an exception
             rocketLaunchingLogicMock
                 .Setup(method => method.TryToLaunchARocket())
                 .ThrowsAsync(new Exception("A fake exception to be thrown when the mock is called"));
 
-            var rocketLauncher = new RocketLauncher(rocketLaunchingLogicMock.Object);
+            var rocketLauncher = new RocketLaunchingBackgroundService(rocketLaunchingLogicMock.Object);
 
             var cancellationTokenSource = new CancellationTokenSource();
             // We do not need to specify cancellation conditions, as the exception is expected to break us from the loop
