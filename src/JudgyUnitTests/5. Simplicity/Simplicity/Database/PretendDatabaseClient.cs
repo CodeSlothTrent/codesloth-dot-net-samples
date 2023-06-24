@@ -20,7 +20,10 @@
             this.queryRetries = queryRetries;
         }
 
-        private static string[] foods = new[] { "sushi", "pasta", "only slightly toxic leaves" };
+        public const string FoodSushi = "sushi";
+        public const string FoodPasta = "pasta";
+        public const string FoodSlightlyToxicLeaves = "only slightly toxic leaves";
+        private static string[] foods = new[] { FoodSushi, FoodPasta, FoodSlightlyToxicLeaves };
 
         public async Task<FoodForJourney> FindFood(string query)
         {

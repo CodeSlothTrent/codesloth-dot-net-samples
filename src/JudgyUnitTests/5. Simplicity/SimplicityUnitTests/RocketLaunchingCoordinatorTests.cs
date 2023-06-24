@@ -1,11 +1,9 @@
-﻿using Castle.Core.Logging;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Microsoft.Extensions.Logging;
 using Moq;
-using Simplicity.BusinessLogic;
+using Simplicity.BusinessLogic.Launch;
 using Simplicity.Infrastructure;
 using Simplicity.WebApi;
-using System.Threading;
 
 namespace SimplicityUnitTests
 {
@@ -42,7 +40,7 @@ namespace SimplicityUnitTests
         public async Task RocketLaunchingCoordinator_PropagatesExceptions_WhenMessagePollingFails()
         {
             var rocketLauncherMock = new Mock<IRocketLauncher>();
-            
+
             // Pretend that an exception is thrown
             var rocketQueuePollerMock = new Mock<IRocketQueuePoller>();
             rocketQueuePollerMock.Setup(method => method.PollForRocketNeedingLaunch()).ThrowsAsync(new Exception("Pretend exception"));
@@ -55,7 +53,6 @@ namespace SimplicityUnitTests
                 loggerMock.Object,
                 asyncDelayMock.Object
             );
-
 
             // The logic of this test is not as clear as other tests, but is quite important.
             // If the infrastructure of the app fails, we should kill it, rather than swallowing the exception like we do during rocket launch failures
@@ -95,7 +92,7 @@ namespace SimplicityUnitTests
             await rocketLaunchingLogic.TryToLaunchARocket();
 
             rocketLauncherMock.Verify(method => method.LaunchARocket(It.IsAny<RocketLaunchMessage>()), Times.Once(), "We launch the rocket that we found");
-            // Confirm that we pass through the meessage that we received from the queue
+            // Confirm that we pass through the message that we received from the queue
             receivedMessage.Should().BeEquivalentTo(fakeRocketLaunchMessage);
         }
 
@@ -114,9 +111,9 @@ namespace SimplicityUnitTests
             // Pretend that our rocket launch was not successful
             var rocketLauncherMock = new Mock<IRocketLauncher>();
             rocketLauncherMock.Setup(method => method.LaunchARocket(It.IsAny<RocketLaunchMessage>()))
-                .ReturnsAsync(new 
+                .ReturnsAsync(new
                     RocketLaunchResult(
-                        rocketId: 99, 
+                        rocketId: 99,
                         launchWasSuccessful: false
                     )
             );

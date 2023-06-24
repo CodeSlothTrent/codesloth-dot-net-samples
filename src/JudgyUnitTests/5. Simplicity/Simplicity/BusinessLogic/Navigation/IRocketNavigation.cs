@@ -1,9 +1,10 @@
 ﻿using Simplicity.Database;
 
-namespace Simplicity.BusinessLogic
+namespace Simplicity.BusinessLogic.Navigation
 {
-    public interface ICoordinateCalculator
+    public interface IRocketNavigation
     {
         (int latitude, int longitude) CalculateCoordinatesToLand(int numberOfSloths, FoodForJourney foodForJourney);
+        Task<int> CalculateThrust(int rocketModelId, int numberOfSloths);
     }
 }

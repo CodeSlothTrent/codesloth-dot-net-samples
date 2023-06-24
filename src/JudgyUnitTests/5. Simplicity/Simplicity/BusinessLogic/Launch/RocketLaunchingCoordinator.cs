@@ -2,7 +2,7 @@
 using Simplicity.Infrastructure;
 using System.Text.Json;
 
-namespace Simplicity.BusinessLogic
+namespace Simplicity.BusinessLogic.Launch
 {
     public class RocketLaunchingCoordinator : IRocketLaunchingCoordinator
     {

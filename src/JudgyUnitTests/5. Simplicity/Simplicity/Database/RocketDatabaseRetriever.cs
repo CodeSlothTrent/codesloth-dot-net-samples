@@ -22,7 +22,7 @@ namespace Simplicity.Database
         /// Failing to retrieve this result is not catastrophic though, so don't throw an exception and instead let the user determine the 
         /// appropriate course of action
         /// </summary>
-        public async Task<FoodForJourney> GetFoodToFeedSlothsOnTheirJourney(int id, int numberOfSloths)
+        public async Task<FoodForJourney?> GetFoodToFeedSlothsOnTheirJourney(int id, int numberOfSloths)
         {
             try
             {
@@ -32,8 +32,8 @@ namespace Simplicity.Database
             {
                 logger.LogError($"Exception caught while determining food to feed sloths. {ex.Message}.");
 
-                // Red flag
-                return new FoodForJourney();
+                // Return null here, as we have no food to return
+                return null;
             }
         }
 

@@ -39,7 +39,7 @@ namespace FixingStaticCode.BusinessLogic
                     }
                 }
             }
-            catch(OverflowException ex)
+            catch (OverflowException ex)
             {
                 // This is redundant but demonstrates that we propagate the OverFlowException
                 throw;

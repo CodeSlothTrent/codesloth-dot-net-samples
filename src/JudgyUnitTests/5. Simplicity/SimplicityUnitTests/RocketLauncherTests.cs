@@ -1,80 +1,74 @@
 ﻿using FluentAssertions;
 using Moq;
-using Simplicity;
-using Simplicity.BusinessLogic;
+using Simplicity.BusinessLogic.Food;
+using Simplicity.BusinessLogic.Launch;
+using Simplicity.BusinessLogic.Navigation;
+using Simplicity.Database;
+using Simplicity.Infrastructure;
+using Simplicity.WebApi;
 
 namespace SimplicityUnitTests
 {
     /// <summary>
-    /// Now that we depend on an interface we have the ability to write more unit tests
-    /// This is because we can simulate different flows through the StartAsync method with a Mock and fake data
+    /// After simplification this class has become quite simple (boring) to unit test!
     /// </summary>
     public class RocketLauncherTests
     {
-        /// <summary>
-        /// The same test from before, except this time we have an objective assertion
-        /// </summary>
         [Fact]
-        public async Task RocketLauncher_DoesNotLaunchARocket_WhenGivenACancelledToken()
+        public async Task LaunchARocket_throwsArgumentException_WhenGivenNoMessage()
         {
-            var rocketLaunchingLogicMock = new Mock<IRocketLaunchingCoordinator>();
-            var rocketLauncher = new RocketLaunchingBackgroundService(rocketLaunchingLogicMock.Object);
+            var rocketNavigationMock = new Mock<IRocketNavigation>();
+            var rocketLaunchingApiMock = new Mock<IRocketLaunchingApi>();
+            var foodPreparationMock = new Mock<IFoodPreparation>();
+            var rocketLauncher = new RocketLauncher(rocketNavigationMock.Object, rocketLaunchingApiMock.Object, foodPreparationMock.Object);
 
-            var cancellationTokenSource = new CancellationTokenSource();
-            var cancellationToken = cancellationTokenSource.Token;
-            cancellationTokenSource.Cancel();
-
-            await rocketLauncher.StartAsync(cancellationToken);
-
-            // We should never launch a rocket if our tokenis already cancelled
-            rocketLaunchingLogicMock.Verify(method => method.TryToLaunchARocket(), Times.Never());
+            Func<Task<RocketLaunchResult>> act = () => rocketLauncher.LaunchARocket(null);
+            await act.Should().ThrowAsync<ArgumentException>();
         }
 
         /// <summary>
-        /// We can now objectively assert that we terminate the loop after the token is singalled
+        /// This is not a great example of a test, because we are heavily testing the insides of the function
+        /// However, in lieu of having more interesting logic to assert, this will give us some confidence that accidental regression
+        /// will be flagged by a failing test case
         /// </summary>
         [Fact]
-        public async Task RocketLauncher_StopsLaunchingRockets_WhenCancellationTokenIsSignaled()
+        public async Task LaunchARocket_PassesCalcualtedValues_ToLaunchRequest()
         {
-            var rocketLaunchingLogicMock = new Mock<IRocketLaunchingCoordinator>();
-            var rocketLauncher = new RocketLaunchingBackgroundService(rocketLaunchingLogicMock.Object);
+            var rocketModelId = 2;
+            var numberOfSlothsToLaunch = 3;
 
-            var cancellationTokenSource = new CancellationTokenSource();
-            var cancellationToken = cancellationTokenSource.Token;
-            cancellationTokenSource.CancelAfter(1000);
+            var foodPreparationMock = new Mock<IFoodPreparation>();
+            var foodForJourney = new FoodForJourney
+            {
+                Foods = new[] { PretendDatabaseClient.FoodSushi, PretendDatabaseClient.FoodSlightlyToxicLeaves },
+                NumberOfCourses = 2
+            };
+            foodPreparationMock.Setup(method => method.PrepareFoodForJourney(rocketModelId, numberOfSlothsToLaunch)).ReturnsAsync(foodForJourney);
 
-            await rocketLauncher.StartAsync(cancellationToken);
+            var rocketNavigationMock = new Mock<IRocketNavigation>();
+            var thrust = 100;
+            rocketNavigationMock.Setup(method => method.CalculateThrust(rocketModelId, numberOfSlothsToLaunch)).ReturnsAsync(thrust);
+            (int lat, int lon) coordinates = (123, 456);
+            rocketNavigationMock.Setup(method => method.CalculateCoordinatesToLand(numberOfSlothsToLaunch, foodForJourney)).Returns(coordinates);
 
-            // We still lack determinism through the usage of cancellation token, but can assert against something more concrete
-            rocketLaunchingLogicMock.Verify(method => method.TryToLaunchARocket(), Times.AtLeastOnce());
-        }
+            var rocketLaunchingApiMock = new Mock<IRocketLaunchingApi>();
 
-        /// <summary>
-        /// One testing flow that is often overlooked is: what happens when an exception is thrown?
-        /// </summary>
-        [Fact]
-        public async Task RocketLauncher_PropagatesUnhandledException_WhenTheyAreThrownByRocketLaunchingLogic()
-        {
-            var rocketLaunchingLogicMock = new Mock<IRocketLaunchingCoordinator>();
+            var rocketLauncher = new RocketLauncher(rocketNavigationMock.Object, rocketLaunchingApiMock.Object, foodPreparationMock.Object);
+            var launchMessage = new RocketLaunchMessage(1, rocketModelId, numberOfSlothsToLaunch);
 
-            // When the rocket launching logic interface is invoked, our mock will throw an exception
-            rocketLaunchingLogicMock
-                .Setup(method => method.TryToLaunchARocket())
-                .ThrowsAsync(new Exception("A fake exception to be thrown when the mock is called"));
+            var result = await rocketLauncher.LaunchARocket(launchMessage);
+            rocketNavigationMock.VerifyAll();
+            foodPreparationMock.VerifyAll();
 
-            var rocketLauncher = new RocketLaunchingBackgroundService(rocketLaunchingLogicMock.Object);
-
-            var cancellationTokenSource = new CancellationTokenSource();
-            // We do not need to specify cancellation conditions, as the exception is expected to break us from the loop
-            var cancellationToken = cancellationTokenSource.Token;
-
-            Func<Task> act = () => rocketLauncher.StartAsync(cancellationToken);
-
-            // Fluent assertions catches the exception which bubbles out of the RocketLauncher
-            await act.Should().ThrowAsync<Exception>();
-
-            // We can assert with determinism that this flow only calls TryToLaunchRocket once
-            rocketLaunchingLogicMock.Verify(method => method.TryToLaunchARocket(), Times.Once());
+            rocketLaunchingApiMock.Verify(method => method.LaunchRocket(
+                It.Is<RocketLaunchRequest>(request =>
+                    request.rocketId == rocketModelId &&
+                    request.thrust == 100 &&
+                    Equals(request.coordinates, coordinates) &&
+                    request.numberOfSloths == numberOfSlothsToLaunch &&
+                    request.FoodForJourney == foodForJourney
+                )
+            ));
         }
     }
 }

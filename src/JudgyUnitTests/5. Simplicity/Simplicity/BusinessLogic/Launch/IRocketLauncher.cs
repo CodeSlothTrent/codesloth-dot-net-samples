@@ -1,7 +1,7 @@
 ﻿using Simplicity.Infrastructure;
 using Simplicity.WebApi;
 
-namespace Simplicity.BusinessLogic
+namespace Simplicity.BusinessLogic.Launch
 {
     public interface IRocketLauncher
     {

@@ -1,4 +1,4 @@
-﻿namespace Simplicity.BusinessLogic
+﻿namespace Simplicity.BusinessLogic.Launch
 {
     public interface IRocketLaunchingCoordinator
     {

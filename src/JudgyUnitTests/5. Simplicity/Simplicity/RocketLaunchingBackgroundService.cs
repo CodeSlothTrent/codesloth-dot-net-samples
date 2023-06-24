@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Hosting;
-using Simplicity.BusinessLogic;
+using Simplicity.BusinessLogic.Launch;
 
 namespace Simplicity
 {
