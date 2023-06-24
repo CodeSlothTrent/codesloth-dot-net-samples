@@ -1,4 +1,4 @@
-﻿using Simplicity.Database;
+﻿using Simplicity.Database.DTO;
 
 namespace Simplicity.BusinessLogic.Navigation
 {

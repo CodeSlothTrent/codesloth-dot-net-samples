@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using Simplicity.Database.DTO;
 
 namespace Simplicity.Database
 {
@@ -7,10 +8,10 @@ namespace Simplicity.Database
     // or Entity Framework https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/
     public class RocketDatabaseRetriever : IRocketDatabaseRetriever
     {
-        private PretendDatabaseClient client;
+        private IPretendDatabaseClient client;
         private ILogger<RocketDatabaseRetriever> logger;
 
-        public RocketDatabaseRetriever(PretendDatabaseClient client, ILogger<RocketDatabaseRetriever> logger)
+        public RocketDatabaseRetriever(IPretendDatabaseClient client, ILogger<RocketDatabaseRetriever> logger)
         {
             this.client = client ?? throw new ArgumentNullException(nameof(client));
             this.logger = logger ?? throw new ArgumentNullException(nameof(logger));

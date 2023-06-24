@@ -4,8 +4,10 @@ using Simplicity.BusinessLogic.Food;
 using Simplicity.BusinessLogic.Launch;
 using Simplicity.BusinessLogic.Navigation;
 using Simplicity.Database;
-using Simplicity.Infrastructure;
+using Simplicity.Database.DTO;
+using Simplicity.Infrastructure.DTO;
 using Simplicity.WebApi;
+using Simplicity.WebApi.DTO;
 
 namespace SimplicityUnitTests
 {
@@ -38,11 +40,8 @@ namespace SimplicityUnitTests
             var numberOfSlothsToLaunch = 3;
 
             var foodPreparationMock = new Mock<IFoodPreparation>();
-            var foodForJourney = new FoodForJourney
-            {
-                Foods = new[] { PretendDatabaseClient.FoodSushi, PretendDatabaseClient.FoodSlightlyToxicLeaves },
-                NumberOfCourses = 2
-            };
+            var foodForJourney = new FoodForJourney(2, new[] { PretendDatabaseClient.FoodSushi, PretendDatabaseClient.FoodSlightlyToxicLeaves });
+
             foodPreparationMock.Setup(method => method.PrepareFoodForJourney(rocketModelId, numberOfSlothsToLaunch)).ReturnsAsync(foodForJourney);
 
             var rocketNavigationMock = new Mock<IRocketNavigation>();

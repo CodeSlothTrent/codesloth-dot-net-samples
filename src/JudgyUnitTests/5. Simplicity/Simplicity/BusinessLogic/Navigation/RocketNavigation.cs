@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Simplicity.Database;
+using Simplicity.Database.DTO;
 
 namespace Simplicity.BusinessLogic.Navigation
 {
@@ -70,7 +71,7 @@ namespace Simplicity.BusinessLogic.Navigation
                     }
                 }
             }
-            catch (OverflowException ex)
+            catch (OverflowException)
             {
                 // This is redundant but demonstrates that we propagate the OverFlowException raised by the checked guard
                 throw;

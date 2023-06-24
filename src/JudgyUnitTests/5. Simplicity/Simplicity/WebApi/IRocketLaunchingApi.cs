@@ -1,4 +1,6 @@
-﻿namespace Simplicity.WebApi
+﻿using Simplicity.WebApi.DTO;
+
+namespace Simplicity.WebApi
 {
     public partial interface IRocketLaunchingApi
     {

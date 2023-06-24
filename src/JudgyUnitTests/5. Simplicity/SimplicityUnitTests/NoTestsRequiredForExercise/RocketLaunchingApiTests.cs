@@ -1,15 +1,15 @@
 ﻿using FluentAssertions;
-using Simplicity.Infrastructure;
+using Simplicity.WebApi;
 
-namespace SimplicityUnitTests
+namespace SimplicityUnitTests.NoTestsRequiredForExercise
 {
-    public class RocketQueuePollerTests
+    public class RocketLaunchingApiTests
     {
         [Fact]
         public void NoTestsRequiredOnDummyClass()
         {
             // This is a dummy infrastructure class that does not require unit tests for this exercise
-            var poller = new RocketQueuePoller(1, 1, string.Empty);
+            var asyncDelay = new RocketLaunchingApi(new HttpClient());
             true.Should().BeTrue();
         }
     }

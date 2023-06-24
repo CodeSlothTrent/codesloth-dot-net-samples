@@ -1,4 +1,6 @@
-﻿namespace Simplicity.Infrastructure
+﻿using Simplicity.Infrastructure.DTO;
+
+namespace Simplicity.Infrastructure
 {
     public interface IRocketQueuePoller
     {

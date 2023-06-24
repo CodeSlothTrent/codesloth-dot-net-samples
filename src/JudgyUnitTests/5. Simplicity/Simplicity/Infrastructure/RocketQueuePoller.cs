@@ -1,4 +1,6 @@
-﻿namespace Simplicity.Infrastructure
+﻿using Simplicity.Infrastructure.DTO;
+
+namespace Simplicity.Infrastructure
 {
     // This class pretends to fetch a message from a queue
     // To keep its contents simple, the types that it depends on are privitive types or complex types defined within this solution

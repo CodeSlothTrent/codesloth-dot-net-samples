@@ -3,7 +3,8 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using Simplicity.BusinessLogic.Launch;
 using Simplicity.Infrastructure;
-using Simplicity.WebApi;
+using Simplicity.Infrastructure.DTO;
+using Simplicity.WebApi.DTO;
 
 namespace SimplicityUnitTests
 {
@@ -74,7 +75,7 @@ namespace SimplicityUnitTests
             rocketQueuePollerMock.Setup(method => method.PollForRocketNeedingLaunch()).ReturnsAsync(fakeRocketLaunchMessage);
 
             // Configure the LaunchARocket mock method to capture the message that it was given
-            RocketLaunchMessage receivedMessage = null;
+            RocketLaunchMessage? receivedMessage = null;
             var rocketLauncherMock = new Mock<IRocketLauncher>();
             rocketLauncherMock.Setup(method => method.LaunchARocket(It.IsAny<RocketLaunchMessage>()))
                 .Callback<RocketLaunchMessage>(message => receivedMessage = message);

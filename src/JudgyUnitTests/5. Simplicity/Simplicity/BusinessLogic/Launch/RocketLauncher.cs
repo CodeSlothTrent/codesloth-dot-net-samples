@@ -1,7 +1,8 @@
 ﻿using Simplicity.BusinessLogic.Food;
 using Simplicity.BusinessLogic.Navigation;
-using Simplicity.Infrastructure;
+using Simplicity.Infrastructure.DTO;
 using Simplicity.WebApi;
+using Simplicity.WebApi.DTO;
 
 namespace Simplicity.BusinessLogic.Launch
 {

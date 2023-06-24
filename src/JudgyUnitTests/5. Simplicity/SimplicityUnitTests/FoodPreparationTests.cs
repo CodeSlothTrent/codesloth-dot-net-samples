@@ -2,6 +2,7 @@
 using Moq;
 using Simplicity.BusinessLogic.Food;
 using Simplicity.Database;
+using Simplicity.Database.DTO;
 
 namespace SimplicityUnitTests
 {
@@ -10,7 +11,7 @@ namespace SimplicityUnitTests
         [Fact]
         public async Task PrepareFoodForJourney_ReturnsFoodFromDatabase_WhenAvailable()
         {
-            var foodForJourney = new FoodForJourney { Foods = new[] { PretendDatabaseClient.FoodSushi }, NumberOfCourses = 1 };
+            var foodForJourney = new FoodForJourney(1, new[] { PretendDatabaseClient.FoodSushi });
             var databaseRetrieverMock = new Mock<IRocketDatabaseRetriever>();
             databaseRetrieverMock.Setup(method => method.GetFoodToFeedSlothsOnTheirJourney(It.IsAny<int>(), It.IsAny<int>()))
                 .ReturnsAsync(foodForJourney);
@@ -20,6 +21,10 @@ namespace SimplicityUnitTests
             food.Should().BeEquivalentTo(foodForJourney);
         }
 
+        /// <summary>
+        /// The following tests are only available due to refactoring the database retriever to return null when food could not be found
+        /// Instead of the ambiguous new object
+        /// </summary>
         [Theory]
         [InlineData(9)]
         [InlineData(5)]
@@ -28,12 +33,12 @@ namespace SimplicityUnitTests
         {
             var databaseRetrieverMock = new Mock<IRocketDatabaseRetriever>();
             databaseRetrieverMock.Setup(method => method.GetFoodToFeedSlothsOnTheirJourney(It.IsAny<int>(), It.IsAny<int>()))
-                .ReturnsAsync((FoodForJourney)null);
+                .ReturnsAsync((FoodForJourney?)null);
 
             var foodPreparation = new FoodPreparation(databaseRetrieverMock.Object);
             var food = await foodPreparation.PrepareFoodForJourney(1, numberOfSloths);
 
-            var foodForJourney = new FoodForJourney { Foods = new[] { PretendDatabaseClient.FoodSlightlyToxicLeaves }, NumberOfCourses = 1 };
+            var foodForJourney = new FoodForJourney(1, new[] { PretendDatabaseClient.FoodSlightlyToxicLeaves });
 
             food.Should().BeEquivalentTo(foodForJourney);
         }
@@ -45,8 +50,8 @@ namespace SimplicityUnitTests
         public async Task PrepareFoodForJourney_ThrowsException_WhenDatabaseFoodUnavailable_AndMoreThan9Sloths(int numberOfSloths)
         {
             var databaseRetrieverMock = new Mock<IRocketDatabaseRetriever>();
-            _ = databaseRetrieverMock.Setup(method => method.GetFoodToFeedSlothsOnTheirJourney(It.IsAny<int>(), It.IsAny<int>()))
-                .ReturnsAsync((FoodForJourney)null);
+            databaseRetrieverMock.Setup(method => method.GetFoodToFeedSlothsOnTheirJourney(It.IsAny<int>(), It.IsAny<int>()))
+                .ReturnsAsync((FoodForJourney?)null);
 
             var foodPreparation = new FoodPreparation(databaseRetrieverMock.Object);
             Func<Task<FoodForJourney>> act = () => foodPreparation.PrepareFoodForJourney(1, numberOfSloths);

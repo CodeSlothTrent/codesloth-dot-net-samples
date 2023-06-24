@@ -1,4 +1,6 @@
-﻿namespace Simplicity.Database
+﻿using Simplicity.Database.DTO;
+
+namespace Simplicity.Database
 {
     // This class is a pretend database client, likely authored by an external party
     public class PretendDatabaseClient : IPretendDatabaseClient
@@ -40,7 +42,7 @@
                 foodsToServe.Add(foods[randomFoodIndex]);
             }
 
-            return new FoodForJourney { NumberOfCourses = numberOfCourses, Foods = foodsToServe.ToArray() };
+            return new FoodForJourney(numberOfCourses, foodsToServe.ToArray());
         }
 
         public async Task<RocketThrustStatistics> FindRocketStatistics(string query)

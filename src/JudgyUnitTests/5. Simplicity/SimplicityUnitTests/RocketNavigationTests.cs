@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication;
 using Moq;
 using Simplicity.BusinessLogic.Navigation;
 using Simplicity.Database;
+using Simplicity.Database.DTO;
 
 namespace SimplicityUnitTests
 {
@@ -105,7 +106,7 @@ namespace SimplicityUnitTests
             var databaseRetrieverMock = new Mock<IRocketDatabaseRetriever>();
 
             var rocketNavigation = new RocketNavigation(mockClock.Object, databaseRetrieverMock.Object);
-            Func<(int lat, int lon)> act = () => rocketNavigation.CalculateCoordinatesToLand(1, (FoodForJourney)null);
+            Func<(int lat, int lon)> act = () => rocketNavigation.CalculateCoordinatesToLand(1, null);
 
             act.Should().Throw<ArgumentException>("Food should be expected in calculating coordinates to land");
         }
@@ -121,11 +122,7 @@ namespace SimplicityUnitTests
             var databaseRetrieverMock = new Mock<IRocketDatabaseRetriever>();
 
             var rocketNavigation = new RocketNavigation(mockClock.Object, databaseRetrieverMock.Object);
-            var foodForJourney = new FoodForJourney
-            {
-                Foods = foods,
-                NumberOfCourses = 2
-            };
+            var foodForJourney = new FoodForJourney(2, foods);
             var coordinates = rocketNavigation.CalculateCoordinatesToLand(1, foodForJourney);
             coordinates.Should().BeEquivalentTo((lat, lon));
         }
@@ -146,11 +143,7 @@ namespace SimplicityUnitTests
             var databaseRetrieverMock = new Mock<IRocketDatabaseRetriever>();
 
             var rocketNavigation = new RocketNavigation(mockClock.Object, databaseRetrieverMock.Object);
-            var foodForJourney = new FoodForJourney
-            {
-                Foods = new[] { food },
-                NumberOfCourses = 2
-            };
+            var foodForJourney = new FoodForJourney(2, new[] { food });
             var coordinates = rocketNavigation.CalculateCoordinatesToLand(numberOfSloths, foodForJourney);
             coordinates.Should().BeEquivalentTo((lat, lon));
         }

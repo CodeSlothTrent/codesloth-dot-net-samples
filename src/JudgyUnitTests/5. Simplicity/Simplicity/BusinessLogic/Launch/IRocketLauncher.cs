@@ -1,5 +1,5 @@
-﻿using Simplicity.Infrastructure;
-using Simplicity.WebApi;
+﻿using Simplicity.Infrastructure.DTO;
+using Simplicity.WebApi.DTO;
 
 namespace Simplicity.BusinessLogic.Launch
 {

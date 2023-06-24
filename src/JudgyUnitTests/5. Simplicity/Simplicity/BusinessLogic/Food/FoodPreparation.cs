@@ -1,4 +1,5 @@
 ﻿using Simplicity.Database;
+using Simplicity.Database.DTO;
 
 namespace Simplicity.BusinessLogic.Food
 {
@@ -18,7 +19,7 @@ namespace Simplicity.BusinessLogic.Food
             {
                 if (numberOfSlothsToLaunch < 10)
                 {
-                    foodForJourney = new FoodForJourney { NumberOfCourses = 1, Foods = new[] { PretendDatabaseClient.FoodSlightlyToxicLeaves } };
+                    foodForJourney = new FoodForJourney(1, new[] { PretendDatabaseClient.FoodSlightlyToxicLeaves });
                 }
                 else
                 {

@@ -1,4 +1,6 @@
-﻿namespace Simplicity.Database
+﻿using Simplicity.Database.DTO;
+
+namespace Simplicity.Database
 {
     public interface IRocketDatabaseRetriever
     {
