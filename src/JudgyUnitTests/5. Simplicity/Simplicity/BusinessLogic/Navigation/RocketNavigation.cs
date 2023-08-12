@@ -20,15 +20,58 @@ namespace Simplicity.BusinessLogic.Navigation
             this.rocketDatabaseRetriever = rocketDatabaseRetriever ?? throw new ArgumentNullException(nameof(rocketDatabaseRetriever));
         }
 
-        private (int latitude, int longitude) CalculateCoordinates(CoordinateInputs inputs) => inputs switch
+        //private (int latitude, int longitude) CalculateCoordinates(int numberOfSloths, string foodForJourney) => (numberOfSloths, foodForJourney) switch
+        //{
+        //    { numberOfSloths: < 10, foodForJourney: PretendDatabaseClient.FoodSlightlyToxicLeaves } => (123, 456),
+        //    { numberOfSloths: < 10, foodForJourney: PretendDatabaseClient.FoodSushi } => (456, 789),
+        //    { numberOfSloths: > 10, foodForJourney: PretendDatabaseClient.FoodSushi } => (111, 222),
+        //    { numberOfSloths: > 10, foodForJourney: PretendDatabaseClient.FoodSlightlyToxicLeaves } => (444, 444),
+        //    { numberOfSloths: < 10 } => (000, 111),
+        //    { numberOfSloths: >= 10 } => (111, 000)
+        //};
+
+        private (int latitude, int longitude) CalculateCoordinates(int numberOfSloths, string foodForJourney)
         {
-            { numberOfSloths: < 10, foodForJourney: PretendDatabaseClient.FoodSlightlyToxicLeaves } => (123, 456),
-            { numberOfSloths: < 10, foodForJourney: PretendDatabaseClient.FoodSushi } => (456, 789),
-            { numberOfSloths: > 10, foodForJourney: PretendDatabaseClient.FoodSushi } => (111, 222),
-            { numberOfSloths: > 10, foodForJourney: PretendDatabaseClient.FoodSlightlyToxicLeaves } => (444, 444),
-            { numberOfSloths: < 10 } => (000, 111),
-            { numberOfSloths: >= 10 } => (111, 000)
-        };
+            if (numberOfSloths < 10)
+            {
+                return CalculateCoordinatesForSmallNumberOfPassengers(foodForJourney);
+            }
+            else if (numberOfSloths > 10)
+            {
+                return CalculateCoordinatesForLargeNumberOfPassengers(foodForJourney);
+            }
+
+            return (111, 000);
+        }
+
+        private static (int latitude, int longitude) CalculateCoordinatesForLargeNumberOfPassengers(string foodForJourney)
+        {
+            if (string.Equals(foodForJourney, PretendDatabaseClient.FoodSushi))
+            {
+                return (111, 222);
+            }
+            else if (string.Equals(foodForJourney, PretendDatabaseClient.FoodSlightlyToxicLeaves))
+            {
+                return (444, 444);
+            }
+            return (111, 000);
+        }
+        private static (int latitude, int longitude) CalculateCoordinatesForSmallNumberOfPassengers(string foodForJourney)
+        {
+            if (string.Equals(foodForJourney, PretendDatabaseClient.FoodSlightlyToxicLeaves))
+            {
+                return (123, 456);
+            }
+            else if (string.Equals(foodForJourney, PretendDatabaseClient.FoodSushi))
+            {
+                return (456, 789);
+            }
+            else
+            {
+                return (000, 111);
+            }
+        }
+
 
         /// <summary>
         /// We need to calculate the best place to land on the moon to accommodate the given number of sloths and their allocated cuisine
@@ -41,7 +84,7 @@ namespace Simplicity.BusinessLogic.Navigation
             }
 
             var coordinates = new CoordinateInputs(numberOfSloths, foodForJourney.Foods.First());
-            return CalculateCoordinates(coordinates);
+            return CalculateCoordinates(coordinates.numberOfSloths, coordinates.foodForJourney);
         }
 
         public async Task<int> CalculateThrust(int rocketModelId, int numberOfSloths)

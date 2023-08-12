@@ -17,6 +17,36 @@ namespace SimplicityUnitTests
     public class RocketLauncherTests
     {
         [Fact]
+        public async void LaunchARocket_throwsArgumentNullException_WhenGivenNullRocketNavigation()
+        {
+            var rocketLaunchingApiMock = new Mock<IRocketLaunchingApi>();
+            var foodPreparationMock = new Mock<IFoodPreparation>();
+
+            Func<RocketLauncher> act = () => new RocketLauncher(null, rocketLaunchingApiMock.Object, foodPreparationMock.Object);
+            act.Should().Throw<ArgumentNullException>();
+        }
+
+        [Fact]
+        public async Task LaunchARocket_throwsArgumentNullException_WhenGivenNullRocketLaunchingApi()
+        {
+            var rocketNavigationMock = new Mock<IRocketNavigation>();
+            var foodPreparationMock = new Mock<IFoodPreparation>();
+
+            Func<RocketLauncher> act = () => new RocketLauncher(rocketNavigationMock.Object, null, foodPreparationMock.Object);
+            act.Should().Throw<ArgumentNullException>();
+        }
+
+        [Fact]
+        public async Task LaunchARocket_throwsArgumentNullException_WhenGivenNullFoodPreparation()
+        {
+            var rocketNavigationMock = new Mock<IRocketNavigation>();
+            var rocketLaunchingApiMock = new Mock<IRocketLaunchingApi>();
+
+            Func<RocketLauncher> act = () => new RocketLauncher(rocketNavigationMock.Object, rocketLaunchingApiMock.Object, null);
+            act.Should().Throw<ArgumentNullException>();
+        }
+
+        [Fact]
         public async Task LaunchARocket_throwsArgumentException_WhenGivenNoMessage()
         {
             var rocketNavigationMock = new Mock<IRocketNavigation>();

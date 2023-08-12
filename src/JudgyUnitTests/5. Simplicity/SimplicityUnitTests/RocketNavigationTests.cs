@@ -4,6 +4,7 @@ using Moq;
 using Simplicity.BusinessLogic.Navigation;
 using Simplicity.Database;
 using Simplicity.Database.DTO;
+using System.Runtime.CompilerServices;
 
 namespace SimplicityUnitTests
 {
@@ -12,6 +13,20 @@ namespace SimplicityUnitTests
     /// </summary>
     public class RocketNavigationTests
     {
+        [Fact]
+        public void RocketNavigation_ThrowsArgumentException_GivenNullSystemClock()
+        {
+            Action action = () => new RocketNavigation(null, new Mock<IRocketDatabaseRetriever>().Object);
+            action.Should().Throw<ArgumentNullException>();
+        }
+
+        [Fact]
+        public void RocketNavigation_ThrowsArgumentException_GivenDatabaseRetriever()
+        {
+            Action action = () => new RocketNavigation(new Mock<ISystemClock>().Object, null);
+            action.Should().Throw<ArgumentNullException>();
+        }
+
         [Theory]
         // Case 1
         [InlineData(1, 1, 1, 1, 1, 1, "2023-01-01T01:59:59Z", 5, "Hour before 2am UTC has no modifier")]
@@ -116,6 +131,7 @@ namespace SimplicityUnitTests
         [Theory]
         [InlineData(new[] { PretendDatabaseClient.FoodSushi, PretendDatabaseClient.FoodSlightlyToxicLeaves }, 456, 789)]
         [InlineData(new[] { PretendDatabaseClient.FoodSlightlyToxicLeaves, PretendDatabaseClient.FoodSushi }, 123, 456)]
+        [InlineData(new[] { null, PretendDatabaseClient.FoodSushi }, 000, 111)]
         public void CalculateCoordinatesToLand_CalculatesCoordinates_BasedOffFirstMeal(string[] foods, int lat, int lon)
         {
             var mockClock = new Mock<ISystemClock>();
@@ -137,6 +153,8 @@ namespace SimplicityUnitTests
         [InlineData(1, PretendDatabaseClient.FoodPasta, 000, 111)]
         [InlineData(9, PretendDatabaseClient.FoodPasta, 000, 111)]
         [InlineData(10, PretendDatabaseClient.FoodPasta, 111, 000)]
+        [InlineData(1, null, 000, 111)]
+        [InlineData(10, null, 111, 000)]
         public void CalculateCoordinatesToLand_CalculatesCoordinates_BasedOffSlothCountAndMeal(int numberOfSloths, string food, int lat, int lon)
         {
             var mockClock = new Mock<ISystemClock>();
